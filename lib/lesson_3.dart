@@ -94,12 +94,12 @@ void main(List<String> args) {
 // 5)Нужно написать условие для действий пешехода при различных сигналах светофора.
 // Если сигнал красный, то надо стоять, иначе, если желтый - надо приготовиться, а иначе - можно идти.
   var red = 1;
-  var yel = 2;
+  var yelow = 2;
   var green = 3;
   var svetaforCurrColor = 1;
   if (svetaforCurrColor == red) {
     print("Задача №2_5 горит красный - стоять");
-  } else if (svetaforCurrColor == yel) {
+  } else if (svetaforCurrColor == yelow) {
     print("Задача №2_5 горит желтый - приготовиться");
   } else {
     print("Задача №2_5 горит зеленный - можно идти");
