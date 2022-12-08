@@ -22,7 +22,7 @@ void main(List<String> args) {
 //процент налога и сумму налога.  (Подсказка: если 5%, то число нужно умножить на 0.05.)
   print("Задача №2_____________________");
 
-  var many = Random().nextInt(500000) + 10000;
+  var many = Random().nextInt(490000) + 10000;
   print("зарплата $many");
   var procent = many / 100;
   if (many < 100000) {
