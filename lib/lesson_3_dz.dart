@@ -26,7 +26,9 @@ void main(List<String> args) {
   print("зарплата $many");
   var procent = many / 100;
   if (many < 100000) {
+
     procent *= 5;
+    
     print("5% налог в сумме $procent");
   }
   if (many > 100000 && many < 200000) {
@@ -42,7 +44,7 @@ void main(List<String> args) {
 //от числа выведите на экран месяц и сезон года. Например: число 2 - январь, зима.
   print("Задача №3_____________________");
 
-  var randomNum = Random().nextInt(12) + 1;
+  var randomNum = Random().nextInt(11) + 1;
   var month = Map<int, String>();
   month[1] = "Январь";
   month[2] = "Февраль";
