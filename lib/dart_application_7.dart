@@ -129,9 +129,11 @@ void tasck9() {
 
 void tasck10() {
   String input = stdin.readLineSync()!;
+  int summ = 0;
   int n = int.parse(input);
   if (n == null) return;
   for (int i = 0; i <= n; i++) {
-    print(i * 2);
+    summ += i * 2;
+    print(summ);
   }
 }
