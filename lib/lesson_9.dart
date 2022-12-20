@@ -1,8 +1,41 @@
 import 'dart:ffi';
 
 void main(List<String> args) {
+  Country country = Country(name: "KG", climat: "tropic");
+  country.printName;
+  Car car = Car(name: "Honda", color: "white", price: 6000, power: 2000);
+  car.printCar();
+
   task1();
   task2();
+}
+
+class Country {
+  String name;
+  String climat;
+
+  void printName() {
+    print("$name - $climat");
+  }
+
+  Country({required this.name, required this.climat});
+}
+
+class Car {
+  String name;
+  String color;
+  int price;
+  int power;
+
+  void printCar() {
+    print("характеристики машины: \n$name\n$color\n$price\n$power");
+  }
+
+  Car(
+      {required this.name,
+      required this.color,
+      required this.price,
+      required this.power});
 }
 
 void task1() {
@@ -59,7 +92,8 @@ void task2() {
   daniel.takeBook(
       namesOfBooks: ["География", "Литра", "Матем", "Физика", "Англ"]);
   daniel.returnBook(countOfReturns: 5);
-  daniel.returnBook(namesOfReturns:["География", "Литра", "Матем", "Физика", "Англ"]);
+  daniel.returnBook(
+      namesOfReturns: ["География", "Литра", "Матем", "Физика", "Англ"]);
 }
 
 class Reader {
