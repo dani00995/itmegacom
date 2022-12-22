@@ -10,11 +10,13 @@ class Vehicle {
       required this.seatingCapacity});
 
   void getPrice() {
-    print((seatingCapacity * 100) * 0.1 + (seatingCapacity * 100));
+    print(
+        'Общая стоимость с процентами: ${(seatingCapacity * 100) * 0.1 + (seatingCapacity * 100)}');
   }
 }
 
 class Scooter extends Vehicle {
+  String color = "Белый";
   Scooter(
       {required super.maxSpeed,
       required super.mileAge,
@@ -24,6 +26,7 @@ class Scooter extends Vehicle {
 }
 
 class Bus implements Vehicle {
+  String color = "Белый";
   @override
   int maxSpeed = 80;
 
@@ -31,7 +34,7 @@ class Bus implements Vehicle {
   int mileAge = 8000;
 
   @override
-  int seatingCapacity = 0;
+  int seatingCapacity = 50;
 
   @override
   void getPrice() {}
