@@ -1,190 +1,169 @@
 import 'dart:io';
 import 'dart:math';
 
-
-int userInput = 32;
-double i = 100;
-double less = 100;
-double greater = 0;
+int fixAns = 32;
+double answer = 100;
+double max = 100;
+double min = 0;
 int count = 0;
 
 int round = 0;
 int currentRound = 0;
 int roundUser = 0;
 int roundComp = 0;
-int spepsUser = 0;
+int stepsUser = 0;
 int stepsComp = 0;
 int victoryUser = 0;
 int victoryComp = 0;
+int complexity = 0;
+String sepor = "===================================";
 void main(List<String> args) {
-  stage1();
-  stage2();
-  stage3();
-  stage4();
+  stageFour();
 }
 
-
-
-void stage1() {
-  print('GAME N-1');
+void stageOne() {
+  answer = 100;
+  max = 100;
+  min = 0;
+  print(
+      '\n\n$sepor$sepor\nПользователь загадывает число, а компьютер угадывает.\n$sepor$sepor\n');
   print('Выберите число от 0 до 100');
-  userInput = int.parse(stdin.readLineSync()!);
-  print("Start game!");
-  computerGuessGame1();
-}
-
-void computerGuessGame1() {
+  fixAns = int.parse(stdin.readLineSync()!);
+  print("-Комп: 'It is $answer'");
   count++;
   stepsComp++;
-  print("-Comp: 'It is $i'");
-  String user = stdin.readLineSync()!;
-  if (user == 'yes') {
-    print("Yes\n\nGot it in $count steps!");
-    roundUser++;
-    if (round != 0) roundstage4();
-    return;
-  }
-  if (user == 'l') {
-    print("less");
-    less = i;
-    if ((less - greater) % 2 == 0) {
-      i = less - ((less - greater) / 2);
-    } else {
-      i = less - ((less - greater - 1) / 2);
-    }
-  } else {
-    print("greater");
-    greater = i;
-    if ((less - greater) % 2 == 0) {
-      i = greater + ((less - greater) / 2);
-    } else {
-      i = greater + ((less - greater - 1) / 2);
-    }
-  }
-  computerGuessGame1();
-}
-
-void stage2() {
-  List randomList = [];
-  for (int index = 0; index < 100; index++) {
-    randomList.add(Random().nextInt(99) + 1);
-  }
-  for (int index = 0; index < 100; index++) {
-    compilGame2(user: randomList[index]);
-  }
-}
-
-void compilGame2({required int user}) {
-  userInput = user;
-  count = 0;
-  less = 100;
-  greater = 0;
-  i = 100;
-  double guess() {
-    if (i > userInput) {
-      less = i;
-      if ((less - greater) % 2 == 0) {
-        return less - ((less - greater) / 2);
-      } else {
-        return less - ((less - greater - 1) / 2);
-      }
-    } else {
-      greater = i;
-      if ((less - greater) % 2 == 0) {
-        return greater + ((less - greater) / 2);
-      } else {
-        return greater + ((less - greater - 1) / 2);
-      }
-    }
-  }
-
-  do {
+  while (answer != fixAns) {
     count++;
-    if (i == userInput) {
-      print('Got $userInput in $count steps ');
-      return;
-    }
-    i = guess();
-  } while (i > 0);
-}
-
-void stage3() {
-  print("Game start\n\nУгадайте число от 0 до 100");
-  userInput = Random().nextInt(100);
-  print(userInput);
-  count = 0;
-  userGuessGame3();
-}
-
-void userGuessGame3() {
-  count++;
-  spepsUser++;
-  i = double.parse(stdin.readLineSync()!);
-  if (i == userInput) {
-    print("yes\n\nGot it in $count steps!");
-    roundComp++;
-    if (round != 0) roundstage4();
-    return;
-  }
-  if (i > userInput) {
-    print('less');
-  } else {
-    print('greater');
-  }
-  userGuessGame3();
-}
-
-void stage4() {
-  print("Выберите количество раундов(мин-1, макс-10)");
-  round = int.parse(stdin.readLineSync()!);
-  currentRound++;
-  print(
-      '**************************** Start GAME **************************************');
-  roundstage4();
-}
-
-void roundstage4() {
-  if (currentRound == round + 1) {
-    if (victoryUser > victoryComp) {
-      print(
-          "**************************************************\n*\n*  Конец игры\n*  Выйграл User со счетом $victoryUser : $victoryComp\n*\n*************************************************");
-    } else if (victoryComp > victoryUser) {
-      print(
-          "**************************************************\n*\n*  Конец игры\n*  Выйграл Компьютер со счетом $victoryComp : $victoryUser\n*\n**************************************************");
+    stepsComp++;
+    if (answer > fixAns) {
+      print('-Пользователь: less');
+      max = answer;
+      answer = max - (max - min) ~/ 2;
     } else {
-      print(
-          "**************************************************\n*\n*  Конец игры\n*  Ничья\n*\n**************************************************");
+      print('-Пользователь: greater ');
+      min = answer;
+      answer = complexity==1? min: max + (max - min) ~/ 2;
     }
-    return;
+    print("-Комп: 'It is $answer'");
   }
-  if (roundUser < currentRound) {
-    count = 0;
-    stepsComp = 0;
-    print(
-        '=====================================================================\n$currentRound Раунд\nПользователь загадывает число, а компьютер угадывает.\nВыберите число от 0 до 100\n=====================================================================');
-    userInput = int.parse(stdin.readLineSync()!);
-    computerGuessGame1();
-  } else if (roundComp < currentRound) {
-    count = 0;
-    spepsUser = 0;
-    print(
-        "=====================================================================\n$currentRound Раунд\nКомпьютер загадывает число, а пользователь отгадывает.\n===================================================================== ");
-    userInput = Random().nextInt(100);
-    print(userInput);
-    spepsUser = 0;
-    userGuessGame3();
-  } else {
-    if (spepsUser < stepsComp)
-      victoryUser++;
-    else if (spepsUser > stepsComp)
-      victoryComp++;
-    else {
-      victoryComp++;
-      victoryUser++;
+  print(
+      "-Пользователь: Yes\n$sepor$sepor\nGot it in $count steps!\n$sepor$sepor\n\n");
+  roundUser++;
+}
+
+void checkAlorithm(int algorithm) {
+  count++;
+  if (algorithm == 1) {
+    while (answer != fixAns) {
+      count++;
+      stepsComp++;
+      if (answer > fixAns) {
+        max = answer;
+        answer = max - (max - min) ~/ 2;
+      } else {
+        min = answer;
+        answer = min + (max - min) ~/ 2;
+      }
     }
-    spepsUser = 0;
-    stepsComp = 0;
-    currentRound++;
-    roundstage4();
+    print("$sepor$sepor\nAlgorithm number $algorithm\n$fixAns in $count steps");
+  } else {
+    while (answer != fixAns) {
+      count++;
+      stepsComp++;
+      if (answer > fixAns) {
+        max = answer;
+        answer = max - (max - min) ~/ 2;
+      } else {
+        min = answer;
+        answer = max + (max - min) ~/ 2;
+      }
+    }
+    print(
+        "\nAlgorithm number $algorithm\n$fixAns in $count steps\n$sepor$sepor");
   }
 }
+
+void stageTwo() {
+  List list = [];
+  for (int i = 0; i < 100; i++) {
+    list.add(Random().nextInt(99) + 1);
+  }
+  for (int i in list) {
+    answer = 100;
+    max = 100;
+    min = 0;
+    count = 0;
+    fixAns = i;
+    checkAlorithm(1);
+    answer = 100;
+    max = 100;
+    min = 0;
+    count = 0;
+    checkAlorithm(2);
+  }
+}
+
+void stageThree() {
+  print(
+      '\n\n$sepor$sepor\nКомпьютер загадывает число, а пользователь отгадывает.\n$sepor$sepor\n');
+  fixAns = Random().nextInt(99) + 1;
+  print("-Компьютер загадал число: $fixAns");
+  answer = double.parse(stdin.readLineSync()!);
+  count++;
+  stepsUser++;
+  while (fixAns != answer) {
+    count++;
+    stepsUser++;
+    if (answer > fixAns) {
+      print("-Компьютер: less");
+    } else {
+      print("-Компьютер: greater");
+    }
+    answer = double.parse(stdin.readLineSync()!);
+  }
+  print(
+      "-Компьютер: Yes\n$sepor$sepor\nGot it in $count steps!\n$sepor$sepor\n\n");
+  roundComp++;
+}
+
+void stageFour() {
+  print("\n$sepor$sepor\n\n    ИГРА: УГАДАЙ ЧИСЛО!\n\n$sepor$sepor\n\nВыберите количество раундов(мин-1, макс-10)");
+  round = int.parse(stdin.readLineSync()!);
+  if(round>10||round==0)return;
+  print("Выберите уревень сложости: 1-Опытный игок, 2-Средний игрок");
+  complexity = int.parse(stdin.readLineSync()!);
+  currentRound++;
+  print('$sepor Start GAME $sepor');
+  while (currentRound != round + 1) {
+    count = 0;
+    if (roundUser < currentRound) {
+      print("Роунд $currentRound");
+      stageOne();
+    } else if (roundComp < currentRound) {
+      print("Роунд $currentRound");
+      stageThree();
+    } else {
+      if (stepsUser < stepsComp) {
+        victoryUser++;
+      } else if (stepsUser > stepsComp) {
+        victoryComp++;
+      } else {
+        victoryComp++;
+        victoryUser++;
+      }
+      stepsUser = 0;
+      stepsComp = 0;
+      currentRound++;
+    }
+  }
+  if (victoryUser > victoryComp) {
+    print(
+        "$sepor$sepor\n\n  Конец игры\n  Выйграл User со счетом $victoryUser : $victoryComp\n\n$sepor$sepor");
+  } else if (victoryComp > victoryUser) {
+    print(
+        "$sepor$sepor\n\n  Конец игры\n  Выйграл Компьютер со счетом $victoryComp : $victoryUser\n\n$sepor$sepor");
+  } else {
+    print("$sepor$sepor\n\n  Конец игры\n  Ничья\n\n$sepor$sepor");
+  }
+}
+
