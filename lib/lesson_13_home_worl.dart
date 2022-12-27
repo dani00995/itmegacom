@@ -1,4 +1,5 @@
 import 'dart:io';
+
 String seperator = "========================\n";
 void main(List<String> args) {
   TaskOne taskOne = TaskOne();
@@ -20,124 +21,134 @@ void main(List<String> args) {
   TaskFive taskFive = TaskFive();
   taskFive.addAndPintPlayers();
 
-  
+  TaskSix taskSix = TaskSix();
+  int stepsCount = 0;
+
+  while (stepsCount != 9) {
+    taskSix.makeStep(playerName: "Samat", value: "x");
+    stepsCount++;
+    taskSix.makeStep(playerName: "Aibek", value: "o");
+    stepsCount++;
+  }
 }
 
-class TaskOne{
+class TaskOne {
   int year = 2022;
-  void setYearStdin(){
+  void setYearStdin() {
     print("Введите год");
     year = int.parse(stdin.readLineSync()!);
   }
-  void setYear(int year){
+
+  void setYear(int year) {
     this.year = year;
   }
-  void chekYear(){
+
+  void chekYear() {
     print("високосный $year год?");
-    if(year%4!=0){
+    if (year % 4 != 0) {
       print("ответ: Нет");
-    }else if(year%100==0){
-      if(year%400==0){
+    } else if (year % 100 == 0) {
+      if (year % 400 == 0) {
         print("ответ: Да");
-      }else{
+      } else {
         print("ответ: Нет");
       }
-    }else{
+    } else {
       print("ответ: Да");
     }
   }
 }
 
-class TaskTwo{
+class TaskTwo {
   double number = 21;
-  void setNumber(double number){
+  void setNumber(double number) {
     this.number = number;
   }
 
-  void decusion(){
+  void decusion() {
     int count = 0;
-    while(number != 1){
+    while (number != 1) {
       count++;
-      if(number%2==0){
-        number/=2;
-      }else{
-        number*=3;
+      if (number % 2 == 0) {
+        number /= 2;
+      } else {
+        number *= 3;
         number++;
-        number/=2;
+        number /= 2;
       }
     }
     print("$seperatorКол-во повторов: $count");
     print(number);
   }
-
 }
 
-class TaskThree{
+class TaskThree {
   int number = 1;
-  void setNumberStdin(){
+  void setNumberStdin() {
     number = int.parse(stdin.readLineSync()!);
   }
-  void setNumber(int number){
+
+  void setNumber(int number) {
     this.number = number;
   }
 
-  void decusion(){
+  void decusion() {
     List<int> evenList = [];
     List<int> notEvenList = [];
-    for(int i = 1; i<= number; i++){
-      if(i%2==0){
+    for (int i = 1; i <= number; i++) {
+      if (i % 2 == 0) {
         evenList.add(i);
-      }else{
+      } else {
         notEvenList.add(i);
       }
-      
     }
     print("$seperatorчетные числа: $evenList\nнечетные числа: $notEvenList");
   }
 }
 
-class TaskFour{
+class TaskFour {
   int number = 6;
-  void setNumberStdin(){
+  void setNumberStdin() {
     number = int.parse(stdin.readLineSync()!);
   }
-  void setNumber(int number){
+
+  void setNumber(int number) {
     this.number = number;
   }
-  void checkNumber(){
+
+  void checkNumber() {
     print("$seperatorсовершенное ли $number?");
     List<int> numbersList = [];
     String summStrn = "";
     int summ = 0;
-    for(int i = 1; i< number; i++){
-      if(number%i==0){
+    for (int i = 1; i < number; i++) {
+      if (number % i == 0) {
         numbersList.add(i);
       }
     }
     numbersList.asMap().forEach((key, value) {
-      summ+=value;
-      if(key==numbersList.length-1){
-        summStrn+="$value";
-      }else{
-        summStrn+="$value + ";
+      summ += value;
+      if (key == numbersList.length - 1) {
+        summStrn += "$value";
+      } else {
+        summStrn += "$value + ";
       }
     });
 
-    if(summ==number){
+    if (summ == number) {
       summStrn = "$number = $summStrn";
       print("Да, $summStrn");
-    }else{
+    } else {
       summStrn = "$number != $summStrn";
       print("Нет, $summStrn");
     }
-
   }
 }
 
-class TaskFive{
+class TaskFive {
   List<Football> barsa = [];
   List<Football> real = [];
-  void addAndPintPlayers(){
+  void addAndPintPlayers() {
     print(seperator);
     barsa.add(Goalkeeper(name: "Хосе Пинто"));
     real.add(Goalkeeper(name: "Андрей Лунин"));
@@ -160,43 +171,66 @@ class TaskFive{
     real.add(Midfielder(name: "Марко Асенсио"));
     real.add(Midfielder(name: "Эдуарду Камавинга"));
 
-
     barsa.add(Attack(name: "Усман Дембеле"));
     barsa.add(Attack(name: "Роберт Левандовски"));
     real.add(Attack(name: "Карим Бензема"));
     real.add(Attack(name: "Эден Азар"));
 
     print("Барса");
-    for (var element in barsa) {element.printPlayer();}
+    for (var element in barsa) {
+      element.printPlayer();
+    }
     print("\n\nРеал");
-    for (var element in real) {element.printPlayer();}
+    for (var element in real) {
+      element.printPlayer();
+    }
   }
-
-  
-
 }
 
-class Football{
+class Football {
   String name;
   String position;
   Football({required this.name, required this.position});
-  void printPlayer(){
+  void printPlayer() {
     print("$name - $position");
   }
 }
-class Goalkeeper extends Football{
+
+class Goalkeeper extends Football {
   Goalkeeper({required super.name}) : super(position: 'Вратарь');
 }
-class Quarterback extends Football{
+
+class Quarterback extends Football {
   Quarterback({required super.name}) : super(position: 'Защитник');
 }
-class Midfielder extends Football{
+
+class Midfielder extends Football {
   Midfielder({required super.name}) : super(position: 'Полузащитник');
 }
-class Attack extends Football{
+
+class Attack extends Football {
   Attack({required super.name}) : super(position: 'Нападающий');
 }
 
-class TaskSix{
-  
+class TaskSix {
+  List<String> lineOne = ['  ', '  ', '  '];
+  List<String> lineTwo = ['  ', '  ', '  '];
+  List<String> lineThree = ['  ', '  ', '  '];
+
+  makeStep({required String playerName, required String value}) {
+    // print('$a\n$b\n$c');
+    print('Now is $playerName turn');
+    print('Select the row');
+    int row = int.parse(stdin.readLineSync()!) - 1;
+    print('Select the column');
+    int column = int.parse(stdin.readLineSync()!) - 1;
+    if (row == 0) {
+      lineOne[column] = value;
+    } else if (row == 1) {
+      lineTwo[column] = value;
+    } else if (row == 2) {
+      lineThree[column] = value;
+    }
+    print('$lineOne\n$lineTwo\n$lineThree');
+  }
 }
